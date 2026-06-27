@@ -1611,8 +1611,8 @@ export default function App() {
             Get in Touch
           </h2>
           <p className="text-muted-foreground mb-8 max-w-md mx-auto text-sm leading-relaxed">
-            Sẵn sàng hợp tác cho các dự án AI/ML thú vị, research collaboration
-            hoặc cơ hội công việc.
+            Open to collaborating on exciting AI/ML projects, research
+            collaborations, and job opportunities.
           </p>
           <div className="flex flex-wrap justify-center gap-3 mb-12">
             <a
