@@ -929,7 +929,7 @@ export default function App() {
                   style={{ borderColor: "rgba(59,130,246,0.3)" }}
                 >
                   <img
-                    src="/avatar.jpg"
+                    src={`${import.meta.env.BASE_URL}avatar.jpg`}
                     alt="Profile photo"
                     className="w-full h-full object-cover"
                   />
