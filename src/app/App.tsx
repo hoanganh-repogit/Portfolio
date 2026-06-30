@@ -69,10 +69,21 @@ const NAV_ITEMS = [
 const PROJECTS = [
   {
     id: 1,
-    title: "AI Chatbot Platform",
+    title: "Artificial Intelligence Knowledge Hub",
     description:
-      "Hệ thống chatbot thông minh tích hợp LLM (GPT-4) với RAG pipeline, hỗ trợ đa ngôn ngữ và knowledge base tùy chỉnh cho doanh nghiệp.",
-    tags: ["Python", "LangChain", "FastAPI", "React", "PostgreSQL", "Docker"],
+      "Developing an AI-powered chatbot website for answering questions based on educational materials and internal documents. The system provides responses grounded in the institutions document repository, with source citations included and no hallucinated information beyond the provided materials. The AI chatbot also supports summarizing and aggregating learning resources, making it easier for learners to search and access relevant materials. The platform includes role-based access control for administrators, lecturers, and students.",
+    tags: [
+      "Python",
+      "LangGraph",
+      "FastAPI",
+      "React",
+      "PostgreSQL",
+      "Docker",
+      "Docling",
+      "Qdrant",
+      "JWT/RBAC",
+      "React/Vite",
+    ],
     type: "AI / NLP",
     stars: 128,
     status: "Production",
@@ -305,52 +316,52 @@ const TOOLS = [
 const ACTIVITIES = [
   {
     id: 1,
-    title: "AI Research Intern",
-    org: "VinAI Research",
-    period: "Jun 2024 – Present",
+    title: "VinUniversity: AI in Action",
+    org: "VinUni AI in Action: AI Talent Development Program",
+    period: "Jun 2026 – Aug 2026",
     type: "Internship",
     description:
-      "Nghiên cứu và phát triển các mô hình ngôn ngữ lớn cho tiếng Việt. Tham gia dự án fine-tuning LLaMA-3 với instruction dataset 500k+ samples. Publish 1 paper tại EMNLP 2024 Workshop.",
-    tags: ["LLM", "NLP", "Research", "Python"],
+      "Participated in the **AI in Action Program at VinUniversity**, a hands-on AI talent development program focused on practical training and real-world applications. Received training and studied at the university while applying AI technologies to product development and project implementation. Gained hands-on industry experience through internships within Vingroup’s enterprises, working directly with professional teams on real business challenges and technology-driven solutions.",
+    tags: ["LLM", "NLP", "Research", "Python", "Agnets AI", "RAG"],
     icon: <Brain size={16} />,
     color: "blue",
   },
   {
     id: 2,
-    title: "Backend Developer Intern",
-    org: "FPT Software",
-    period: "Jan 2023 – May 2023",
+    title: "AWS Cloud Services Intern",
+    org: "Amazon Web Services",
+    period: "Jun 2025 – Aug 2025",
     type: "Internship",
     description:
-      "Phát triển microservices với Go và Kafka cho hệ thống xử lý giao dịch tài chính real-time. Tối ưu hiệu năng API giảm latency từ 200ms xuống 45ms. Code review và mentoring 2 intern.",
-    tags: ["Go", "Kafka", "Microservices", "PostgreSQL"],
+      "Conducted research and hands-on work with AWS services, designing cloud architectures and evaluating new service offerings. Engaged in cloud events and technical workshops to deepen expertise in cloud computing. Collaborated with enterprises to understand system operations, product development lifecycles, and strengthen deployment and DevOps knowledge.",
+    tags: ["EC2", "IAM", "S3", "EBS", "CloudFront", "API Gateway"],
     icon: <Server size={16} />,
     color: "cyan",
   },
-  {
-    id: 3,
-    title: "Co-founder & Tech Lead",
-    org: "AI Club – Đại học Bách Khoa Hà Nội",
-    period: "2021 – 2024",
-    type: "Leadership",
-    description:
-      "Đồng sáng lập và dẫn dắt CLB AI với 150+ thành viên. Tổ chức 20+ workshop về ML/DL, hackathon hàng năm thu hút 300+ sinh viên. Kết nối doanh nghiệp và sinh viên qua các dự án thực tế.",
-    tags: ["Leadership", "AI/ML", "Community", "Teaching"],
-    icon: <Activity size={16} />,
-    color: "indigo",
-  },
-  {
-    id: 4,
-    title: "Open Source Contributor",
-    org: "LangChain, HuggingFace",
-    period: "2022 – Present",
-    type: "Open Source",
-    description:
-      "Đóng góp cho các thư viện AI open-source: 15+ merged PRs vào LangChain (Vietnamese document loaders), 8+ PRs vào HuggingFace datasets (Vietnamese NLP benchmarks).",
-    tags: ["Open Source", "LangChain", "HuggingFace", "NLP"],
-    icon: <GitBranch size={16} />,
-    color: "sky",
-  },
+  // {
+  //   id: 3,
+  //   title: "Co-founder & Tech Lead",
+  //   org: "AI Club – Đại học Bách Khoa Hà Nội",
+  //   period: "2021 – 2024",
+  //   type: "Leadership",
+  //   description:
+  //     "Đồng sáng lập và dẫn dắt CLB AI với 150+ thành viên. Tổ chức 20+ workshop về ML/DL, hackathon hàng năm thu hút 300+ sinh viên. Kết nối doanh nghiệp và sinh viên qua các dự án thực tế.",
+  //   tags: ["Leadership", "AI/ML", "Community", "Teaching"],
+  //   icon: <Activity size={16} />,
+  //   color: "indigo",
+  // },
+  // {
+  //   id: 4,
+  //   title: "Open Source Contributor",
+  //   org: "LangChain, HuggingFace",
+  //   period: "2022 – Present",
+  //   type: "Open Source",
+  //   description:
+  //     "Đóng góp cho các thư viện AI open-source: 15+ merged PRs vào LangChain (Vietnamese document loaders), 8+ PRs vào HuggingFace datasets (Vietnamese NLP benchmarks).",
+  //   tags: ["Open Source", "LangChain", "HuggingFace", "NLP"],
+  //   icon: <GitBranch size={16} />,
+  //   color: "sky",
+  // },
 ];
 
 const CERTIFICATES = [
