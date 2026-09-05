@@ -56,6 +56,8 @@ import {
   SiKeras,
 } from "react-icons/si";
 
+const CV_URL = `${import.meta.env.BASE_URL}CV_HOANGVANANH.pdf`;
+
 // ─── DATA ────────────────────────────────────────────────────────────────────
 
 const NAV_ITEMS = [
@@ -682,8 +684,8 @@ export default function App() {
               <Linkedin size={16} />
             </a>
             <a
-              href="/cv.pdf"
-              download
+              href={CV_URL}
+              download="CV_HOANGVANANH.pdf"
               className="flex items-center gap-2 px-4 py-2 rounded text-sm font-mono font-semibold text-white transition-all duration-200 hover:scale-105 hover:shadow-lg hover:shadow-primary/30"
               style={{
                 background: "linear-gradient(135deg, #3b82f6, #06b6d4)",
@@ -751,8 +753,8 @@ export default function App() {
                   <Linkedin size={18} />
                 </a>
                 <a
-                  href="/cv.pdf"
-                  download
+                  href={CV_URL}
+                  download="CV_HOANGVANANH.pdf"
                   className="ml-auto flex items-center gap-2 px-3 py-1.5 rounded text-xs font-mono font-semibold text-white"
                   style={{
                     background: "linear-gradient(135deg, #3b82f6, #06b6d4)",
@@ -902,8 +904,8 @@ export default function App() {
                   <ChevronRight size={16} />
                 </button>
                 <a
-                  href="/cv.pdf"
-                  download
+                  href={CV_URL}
+                  download="CV_HOANGVANANH.pdf"
                   className="flex items-center gap-2 px-6 py-3 rounded font-mono text-sm font-semibold text-white transition-all duration-200 hover:scale-105 hover:shadow-lg hover:shadow-cyan-500/30 active:scale-95"
                   style={{
                     background: "linear-gradient(135deg, #0284c7, #06b6d4)",
