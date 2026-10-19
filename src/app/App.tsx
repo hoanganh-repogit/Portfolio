@@ -1,3 +1,6 @@
+import { NeuralNetwork } from "./NeuralNetwork";
+import { Signature } from "./Signature";
+import { SocialLinks } from "./SocialLinks";
 import { useState, useEffect } from "react";
 import {
   Github,
@@ -58,7 +61,6 @@ import {
 
 const CV_URL = `${import.meta.env.BASE_URL}CV_HOANGVANANH.pdf`;
 
-// ─── DATA ────────────────────────────────────────────────────────────────────
 
 const NAV_ITEMS = [
   { id: "home", label: "Home" },
@@ -100,74 +102,18 @@ const PROJECTS = [
     id: 2,
     title: "Meeting_Summarization",
     description:
-      "Ứng dụng computer vision phát hiện lỗi sản phẩm trong dây chuyền sản xuất sử dụng YOLOv8, đạt độ chính xác 96.4% trên tập kiểm thử thực tế.",
+      "A computer vision application for detecting product defects on manufacturing lines using YOLOv8, achieving 96.4% accuracy on a real-world test set.",
     tags: ["Python", "Whisper", "PyTorch", "pyannote"],
     type: "Speech Processing",
     stars: 89,
     status: "Completed",
     gradient: "from-cyan-600/20 to-blue-500/10",
     borderColor: "border-cyan-500/30",
-    accentColor: "#06b6d4",
+    accentColor: "#087d91",
     year: "2026",
     repoUrl: "https://github.com/hoanganh-repogit/Meeting_Summarization",
     liveUrl: "",
   },
-  // {
-  //   id: 3,
-  //   title: "Distributed Task Scheduler",
-  //   description:
-  //     "Hệ thống phân phối và lên lịch tác vụ cho hạ tầng microservices, xử lý 50k+ jobs/phút với fault tolerance và real-time monitoring.",
-  //   tags: ["Go", "Kafka", "Redis", "Kubernetes", "Prometheus", "Grafana"],
-  //   type: "Backend / Infra",
-  //   stars: 204,
-  //   status: "Production",
-  //   gradient: "from-indigo-600/20 to-blue-500/10",
-  //   borderColor: "border-indigo-500/30",
-  //   accentColor: "#818cf8",
-  //   year: "2023",
-  // },
-  // {
-  //   id: 4,
-  //   title: "DevSecOps Pipeline",
-  //   description:
-  //     "Pipeline CI/CD tích hợp bảo mật tự động: SAST, DAST, dependency scanning và container security scanning, giảm 70% thời gian audit thủ công.",
-  //   tags: ["GitLab CI", "Trivy", "SonarQube", "Docker", "Terraform", "AWS"],
-  //   type: "DevOps / Security",
-  //   stars: 67,
-  //   status: "Active",
-  //   gradient: "from-blue-700/20 to-slate-600/10",
-  //   borderColor: "border-blue-600/30",
-  //   accentColor: "#2563eb",
-  //   year: "2023",
-  // },
-  // {
-  //   id: 5,
-  //   title: "NLP Text Analytics Engine",
-  //   description:
-  //     "Engine phân tích văn bản tiếng Việt: sentiment analysis, entity recognition, và topic modeling sử dụng PhoBERT và custom fine-tuning.",
-  //   tags: ["Python", "PhoBERT", "HuggingFace", "Elasticsearch", "FastAPI"],
-  //   type: "AI / NLP",
-  //   stars: 156,
-  //   status: "Completed",
-  //   gradient: "from-sky-600/20 to-blue-500/10",
-  //   borderColor: "border-sky-500/30",
-  //   accentColor: "#0ea5e9",
-  //   year: "2023",
-  // },
-  // {
-  //   id: 6,
-  //   title: "Portfolio & Blog System",
-  //   description:
-  //     "Hệ thống portfolio và blog cá nhân với CMS headless, SSG/SSR hybrid, tối ưu SEO và Lighthouse score 98/100.",
-  //   tags: ["Next.js", "TypeScript", "Sanity CMS", "Tailwind", "Vercel"],
-  //   type: "Full-Stack",
-  //   stars: 43,
-  //   status: "Live",
-  //   gradient: "from-blue-500/20 to-cyan-600/10",
-  //   borderColor: "border-blue-400/30",
-  //   accentColor: "#60a5fa",
-  //   year: "2024",
-  // },
 ];
 
 const EDUCATION = [
@@ -225,7 +171,7 @@ const SKILL_CATEGORIES = [
   {
     category: "AI & Machine Learning",
     icon: <Brain size={18} />,
-    color: "#06b6d4",
+    color: "#087d91",
     skills: [
       { name: "PyTorch", level: 90 },
       { name: "HuggingFace", level: 87 },
@@ -237,7 +183,7 @@ const SKILL_CATEGORIES = [
   {
     category: "Backend & Infrastructure",
     icon: <Server size={18} />,
-    color: "#818cf8",
+    color: "#6454b5",
     skills: [
       { name: "FastAPI", level: 90 },
       { name: "Node.js", level: 82 },
@@ -250,7 +196,7 @@ const SKILL_CATEGORIES = [
   {
     category: "Frontend",
     icon: <Globe size={18} />,
-    color: "#38bdf8",
+    color: "#1679a5",
     skills: [
       { name: "React", level: 88 },
       { name: "Next.js", level: 85 },
@@ -263,7 +209,7 @@ const SKILL_CATEGORIES = [
   {
     category: "Cloud & DevOps",
     icon: <Cpu size={18} />,
-    color: "#7dd3fc",
+    color: "#216f99",
     skills: [
       { name: "AWS", level: 80 },
       { name: "GCP", level: 72 },
@@ -290,29 +236,29 @@ const SKILL_CATEGORIES = [
 
 const TOOLS = [
   { name: "VS Code", icon: <VscVscode />, color: "#3b82f6" },
-  { name: "PyCharm", icon: <SiPycharm />, color: "#06b6d4" },
-  { name: "Jupyter", icon: <SiJupyter />, color: "#f97316" },
+  { name: "PyCharm", icon: <SiPycharm />, color: "#087d91" },
+  { name: "Jupyter", icon: <SiJupyter />, color: "#bf5010" },
   { name: "Git", icon: <SiGit />, color: "#ef4444" },
-  { name: "GitHub", icon: <SiGithub />, color: "#e2eaf7" },
-  { name: "GitLab", icon: <SiGitlab />, color: "#fb923c" },
-  { name: "Docker", icon: <SiDocker />, color: "#38bdf8" },
-  { name: "Kubernetes", icon: <SiKubernetes />, color: "#818cf8" },
-  { name: "Postman", icon: <SiPostman />, color: "#f97316" },
-  { name: "Weights & Biases", icon: <SiWeightsandbiases />, color: "#f472b6" },
-  { name: "Hugging Face", icon: <SiHuggingface />, color: "#f59e0b" },
-  { name: "Vercel", icon: <SiVercel />, color: "#e2eaf7" },
-  { name: "AWS", icon: <FaAws />, color: "#f97316" },
-  { name: "Google Cloud", icon: <SiGooglecloud />, color: "#38bdf8" },
-  { name: "Terraform", icon: <SiTerraform />, color: "#818cf8" },
-  { name: "Prometheus", icon: <SiPrometheus />, color: "#f97316" },
-  { name: "Grafana", icon: <SiGrafana />, color: "#fb923c" },
-  { name: "Datadog", icon: <SiDatadog />, color: "#a78bfa" },
-  { name: "MLflow", icon: <SiMlflow />, color: "#06b6d4" },
-  { name: "Linux", icon: <SiLinux />, color: "#e2eaf7" },
-  { name: "Figma", icon: <SiFigma />, color: "#f472b6" },
-  { name: "Notion", icon: <SiNotion />, color: "#e2eaf7" },
+  { name: "GitHub", icon: <SiGithub />, color: "#33465e" },
+  { name: "GitLab", icon: <SiGitlab />, color: "#b95616" },
+  { name: "Docker", icon: <SiDocker />, color: "#1679a5" },
+  { name: "Kubernetes", icon: <SiKubernetes />, color: "#6454b5" },
+  { name: "Postman", icon: <SiPostman />, color: "#bf5010" },
+  { name: "Weights & Biases", icon: <SiWeightsandbiases />, color: "#b02c77" },
+  { name: "Hugging Face", icon: <SiHuggingface />, color: "#9b6808" },
+  { name: "Vercel", icon: <SiVercel />, color: "#33465e" },
+  { name: "AWS", icon: <FaAws />, color: "#bf5010" },
+  { name: "Google Cloud", icon: <SiGooglecloud />, color: "#1679a5" },
+  { name: "Terraform", icon: <SiTerraform />, color: "#6454b5" },
+  { name: "Prometheus", icon: <SiPrometheus />, color: "#bf5010" },
+  { name: "Grafana", icon: <SiGrafana />, color: "#b95616" },
+  { name: "Datadog", icon: <SiDatadog />, color: "#7653b2" },
+  { name: "MLflow", icon: <SiMlflow />, color: "#087d91" },
+  { name: "Linux", icon: <SiLinux />, color: "#33465e" },
+  { name: "Figma", icon: <SiFigma />, color: "#b02c77" },
+  { name: "Notion", icon: <SiNotion />, color: "#33465e" },
   { name: "Jira", icon: <SiJira />, color: "#3b82f6" },
-  { name: "Confluence", icon: <SiConfluence />, color: "#38bdf8" },
+  { name: "Confluence", icon: <SiConfluence />, color: "#1679a5" },
 ];
 
 const ACTIVITIES = [
@@ -340,30 +286,6 @@ const ACTIVITIES = [
     icon: <Server size={16} />,
     color: "cyan",
   },
-  // {
-  //   id: 3,
-  //   title: "Co-founder & Tech Lead",
-  //   org: "AI Club – Đại học Bách Khoa Hà Nội",
-  //   period: "2021 – 2024",
-  //   type: "Leadership",
-  //   description:
-  //     "Đồng sáng lập và dẫn dắt CLB AI với 150+ thành viên. Tổ chức 20+ workshop về ML/DL, hackathon hàng năm thu hút 300+ sinh viên. Kết nối doanh nghiệp và sinh viên qua các dự án thực tế.",
-  //   tags: ["Leadership", "AI/ML", "Community", "Teaching"],
-  //   icon: <Activity size={16} />,
-  //   color: "indigo",
-  // },
-  // {
-  //   id: 4,
-  //   title: "Open Source Contributor",
-  //   org: "LangChain, HuggingFace",
-  //   period: "2022 – Present",
-  //   type: "Open Source",
-  //   description:
-  //     "Đóng góp cho các thư viện AI open-source: 15+ merged PRs vào LangChain (Vietnamese document loaders), 8+ PRs vào HuggingFace datasets (Vietnamese NLP benchmarks).",
-  //   tags: ["Open Source", "LangChain", "HuggingFace", "NLP"],
-  //   icon: <GitBranch size={16} />,
-  //   color: "sky",
-  // },
 ];
 
 const CERTIFICATES = [
@@ -383,7 +305,7 @@ const CERTIFICATES = [
     date: "May 2025",
     url: "https://www.coursera.org/account/accomplishments/specialization/0DXXF3CLE5S9",
     icon: <SiPytorch />,
-    color: "#818cf8",
+    color: "#6454b5",
   },
   {
     id: 3,
@@ -392,11 +314,10 @@ const CERTIFICATES = [
     date: "Dec 2025",
     url: "https://edu.google.accredible.com/f028a8d8-edff-4432-bab7-0fc351542007#acc.iR1mAK3N",
     icon: <SiGooglecloud />,
-    color: "#818cf8",
+    color: "#6454b5",
   },
 ];
 
-// ─── COMPONENTS ───────────────────────────────────────────────────────────────
 
 function TerminalBadge({
   text,
@@ -546,7 +467,6 @@ function SectionHeader({
   );
 }
 
-// ─── MAIN APP ─────────────────────────────────────────────────────────────────
 
 export default function App() {
   const [activeSection, setActiveSection] = useState("home");
@@ -565,12 +485,13 @@ export default function App() {
       }, "home");
       setActiveSection(current);
     };
+    onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
   const scrollTo = (id: string) => {
-    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+    document.getElementById(id)?.scrollIntoView({ behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
     setMobileMenuOpen(false);
   };
 
@@ -592,35 +513,12 @@ export default function App() {
           animation-play-state: paused;
         }
       `}</style>
-      {/* Grid overlay */}
-      <div
-        className="fixed inset-0 pointer-events-none z-0 opacity-[0.03]"
-        style={{
-          backgroundImage:
-            "linear-gradient(rgba(59,130,246,1) 1px, transparent 1px), linear-gradient(90deg, rgba(59,130,246,1) 1px, transparent 1px)",
-          backgroundSize: "64px 64px",
-        }}
-      />
-
-      {/* Ambient glow */}
-      <div
-        className="fixed top-0 left-1/4 w-[600px] h-[600px] pointer-events-none z-0 opacity-10 rounded-full blur-[120px]"
-        style={{
-          background: "radial-gradient(circle, #3b82f6, transparent 70%)",
-        }}
-      />
-      <div
-        className="fixed bottom-1/4 right-1/4 w-[400px] h-[400px] pointer-events-none z-0 opacity-8 rounded-full blur-[100px]"
-        style={{
-          background: "radial-gradient(circle, #06b6d4, transparent 70%)",
-        }}
-      />
-
-      {/* ── NAV ── */}
+      <a href="#home" className="skip-link">Skip to content</a>
+      <NeuralNetwork />
       <header
         className="fixed top-0 inset-x-0 z-50 transition-all duration-300"
         style={{
-          background: scrolled ? "rgba(5, 13, 26, 0.92)" : "transparent",
+          background: scrolled ? "rgba(247, 249, 252, 0.94)" : "transparent",
           backdropFilter: scrolled ? "blur(20px)" : "none",
           borderBottom: scrolled ? "1px solid rgba(59,130,246,0.12)" : "none",
         }}
@@ -639,7 +537,7 @@ export default function App() {
             </span>
           </button>
           {/* Desktop nav */}
-          <nav className="hidden md:flex items-center gap-1">
+          <nav aria-label="Main navigation" className="hidden md:flex items-center gap-1">
             {NAV_ITEMS.map((item) => (
               <button
                 key={item.id}
@@ -649,7 +547,7 @@ export default function App() {
                   color:
                     activeSection === item.id
                       ? "#3b82f6"
-                      : "rgba(226,234,247,0.6)",
+                      : "#53647a",
                 }}
               >
                 {activeSection === item.id && (
@@ -667,28 +565,13 @@ export default function App() {
 
           {/* Actions */}
           <div className="hidden md:flex items-center gap-3">
-            <a
-              href="https://github.com/hoanganh-repogit"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="w-9 h-9 rounded border border-border flex items-center justify-center text-muted-foreground hover:text-primary hover:border-primary/40 transition-all"
-            >
-              <Github size={16} />
-            </a>
-            <a
-              href="https://www.linkedin.com/in/ho%C3%A0ng-v%C4%83n-anh-831421266/?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_contact_details%3BeKb%2FJcIDQKmfpYBBlcP1mQ%3D%3D"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="w-9 h-9 rounded border border-border flex items-center justify-center text-muted-foreground hover:text-primary hover:border-primary/40 transition-all"
-            >
-              <Linkedin size={16} />
-            </a>
+            <SocialLinks compact />
             <a
               href={CV_URL}
               download="CV_HOANGVANANH.pdf"
               className="flex items-center gap-2 px-4 py-2 rounded text-sm font-mono font-semibold text-white transition-all duration-200 hover:scale-105 hover:shadow-lg hover:shadow-primary/30"
               style={{
-                background: "linear-gradient(135deg, #3b82f6, #06b6d4)",
+                background: "linear-gradient(135deg, #3b82f6, #087d91)",
               }}
             >
               <Download size={14} />
@@ -699,6 +582,9 @@ export default function App() {
           {/* Mobile hamburger */}
           <button
             className="md:hidden w-9 h-9 rounded border border-border flex items-center justify-center text-muted-foreground"
+            aria-label={mobileMenuOpen ? "Close navigation" : "Open navigation"}
+            aria-expanded={mobileMenuOpen}
+            aria-controls="mobile-navigation"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           >
             {mobileMenuOpen ? <X size={16} /> : <Menu size={16} />}
@@ -708,9 +594,9 @@ export default function App() {
         {/* Mobile menu */}
         {mobileMenuOpen && (
           <div
-            className="md:hidden border-t border-border"
+            id="mobile-navigation" className="md:hidden border-t border-border"
             style={{
-              background: "rgba(5, 13, 26, 0.98)",
+              background: "rgba(247, 249, 252, 0.98)",
               backdropFilter: "blur(20px)",
             }}
           >
@@ -724,7 +610,7 @@ export default function App() {
                     color:
                       activeSection === item.id
                         ? "#3b82f6"
-                        : "rgba(226,234,247,0.7)",
+                        : "#53647a",
                     background:
                       activeSection === item.id
                         ? "rgba(59,130,246,0.1)"
@@ -757,7 +643,7 @@ export default function App() {
                   download="CV_HOANGVANANH.pdf"
                   className="ml-auto flex items-center gap-2 px-3 py-1.5 rounded text-xs font-mono font-semibold text-white"
                   style={{
-                    background: "linear-gradient(135deg, #3b82f6, #06b6d4)",
+                    background: "linear-gradient(135deg, #3b82f6, #087d91)",
                   }}
                 >
                   <Download size={12} /> Download CV
@@ -774,7 +660,7 @@ export default function App() {
         className="relative z-10 min-h-screen flex items-center pt-16"
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full py-20 lg:py-32">
-          <div className="grid lg:grid-cols-[1fr_auto] gap-12 lg:gap-16 items-center">
+          <div className="hero-layout grid lg:grid-cols-[1fr_auto] gap-12 lg:gap-16 items-center">
             {/* Text */}
             <div className="max-w-2xl">
               <div className="flex items-center gap-3 mb-6">
@@ -798,7 +684,7 @@ export default function App() {
                   className="bg-clip-text text-transparent"
                   style={{
                     backgroundImage:
-                      "linear-gradient(135deg, #3b82f6, #06b6d4, #818cf8)",
+                      "linear-gradient(135deg, #3b82f6, #087d91, #6454b5)",
                   }}
                 >
                   Van Anh
@@ -846,58 +732,14 @@ export default function App() {
                 ))}
               </div>
 
-              {/* Contact info strip */}
-              <div
-                className="flex flex-wrap items-center gap-x-5 gap-y-2 px-4 py-3 rounded-xl border mb-8"
-                style={{
-                  borderColor: "rgba(59,130,246,0.2)",
-                  background: "rgba(59,130,246,0.05)",
-                }}
-              >
-                <a
-                  href="mailto:hoangvananhgithub@gmail.com"
-                  className="flex items-center gap-2 text-sm font-mono text-muted-foreground hover:text-primary transition-colors group"
-                >
-                  <Mail
-                    size={14}
-                    className="text-primary group-hover:scale-110 transition-transform"
-                  />
-                  hoangvananhgithub@gmail.com
-                </a>
-                <span className="hidden sm:block w-px h-4 bg-border" />
-                <a
-                  href="https://www.linkedin.com/in/ho%C3%A0ng-v%C4%83n-anh-831421266/?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_contact_details%3Bi97vZTDaRc6dwdWurWTQdw%3D%3D"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-2 text-sm font-mono text-muted-foreground hover:text-blue-400 transition-colors group"
-                >
-                  <Linkedin
-                    size={14}
-                    className="text-blue-400 group-hover:scale-110 transition-transform"
-                  />
-                  linkedin.com/in/hoangvananh
-                </a>
-                <span className="hidden sm:block w-px h-4 bg-border" />
-                <a
-                  href="https://www.facebook.com/hoang.van.anh.271908?mibextid=wwXIfr&rdid=ynn6UHSVSBOvSMBI&share_url=https%3A%2F%2Fwww.facebook.com%2Fshare%2F1BzQqbcLuw%2F%3Fmibextid%3DwwXIfr"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-2 text-sm font-mono text-muted-foreground hover:text-blue-500 transition-colors group"
-                >
-                  <Facebook
-                    size={14}
-                    className="text-blue-500 group-hover:scale-110 transition-transform"
-                  />
-                  fb.com/hoangvananh
-                </a>
-              </div>
+              <div className="hero-socials"><SocialLinks /></div>
 
               <div className="flex flex-wrap gap-3">
                 <button
                   onClick={() => scrollTo("projects")}
                   className="flex items-center gap-2 px-6 py-3 rounded font-mono text-sm font-medium text-white transition-all duration-200 hover:scale-105 active:scale-95"
                   style={{
-                    background: "linear-gradient(135deg, #3b82f6, #06b6d4)",
+                    background: "linear-gradient(135deg, #3b82f6, #087d91)",
                   }}
                 >
                   View Projects
@@ -908,7 +750,7 @@ export default function App() {
                   download="CV_HOANGVANANH.pdf"
                   className="flex items-center gap-2 px-6 py-3 rounded font-mono text-sm font-semibold text-white transition-all duration-200 hover:scale-105 hover:shadow-lg hover:shadow-cyan-500/30 active:scale-95"
                   style={{
-                    background: "linear-gradient(135deg, #0284c7, #06b6d4)",
+                    background: "linear-gradient(135deg, #0284c7, #087d91)",
                   }}
                 >
                   <Download size={15} />
@@ -925,7 +767,7 @@ export default function App() {
             </div>
 
             {/* Avatar card */}
-            <div className="flex justify-center lg:justify-end">
+            <div className="portrait-wrap flex justify-center lg:justify-end">
               <div className="relative">
                 {/* Outer ring */}
                 <div
@@ -943,7 +785,7 @@ export default function App() {
                 >
                   <img
                     src={`${import.meta.env.BASE_URL}avatar.jpg`}
-                    alt="Profile photo"
+                    alt="Hoang Van Anh" width={320} height={320} fetchPriority="high"
                     className="w-full h-full object-cover"
                   />
                   <div
@@ -979,7 +821,7 @@ export default function App() {
                 >
                   <div
                     className="text-lg font-bold font-mono"
-                    style={{ color: "#06b6d4" }}
+                    style={{ color: "#087d91" }}
                   >
                     3.2
                   </div>
@@ -1007,9 +849,9 @@ export default function App() {
           <div className="mt-20 lg:mt-24 grid grid-cols-2 sm:grid-cols-4 gap-4">
             {[
               { value: "6+", label: "Projects shipped", color: "#3b82f6" },
-              { value: "15+", label: "Open source PRs", color: "#06b6d4" },
-              { value: "6", label: "Certifications", color: "#818cf8" },
-              { value: "3yr", label: "Experience", color: "#38bdf8" },
+              { value: "15+", label: "Open source PRs", color: "#087d91" },
+              { value: "6", label: "Certifications", color: "#6454b5" },
+              { value: "3yr", label: "Experience", color: "#1679a5" },
             ].map((stat) => (
               <div
                 key={stat.label}
@@ -1043,7 +885,7 @@ export default function App() {
             subtitle="// Highlighted Projects — From Research to Production"
           />
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+          <div className="project-grid grid grid-cols-1 md:grid-cols-2 gap-6">
             {PROJECTS.map((proj) => (
               <div
                 key={proj.id}
@@ -1163,7 +1005,7 @@ export default function App() {
               className="inline-flex items-center gap-2 px-6 py-3 rounded font-mono text-sm border border-border text-muted-foreground hover:text-foreground hover:border-primary/40 transition-all"
             >
               <Github size={15} />
-              Xem thêm trên GitHub
+              Explore more on GitHub
               <ExternalLink size={13} />
             </a>
           </div>
@@ -1194,8 +1036,8 @@ export default function App() {
               {EDUCATION.map((edu, i) => {
                 const colors: Record<string, string> = {
                   blue: "#3b82f6",
-                  cyan: "#06b6d4",
-                  indigo: "#818cf8",
+                  cyan: "#087d91",
+                  indigo: "#6454b5",
                 };
                 const c = colors[edu.color];
                 return (
@@ -1315,7 +1157,7 @@ export default function App() {
                   background:
                     activeSkillCat === i ? cat.color + "15" : "transparent",
                   color:
-                    activeSkillCat === i ? cat.color : "rgba(226,234,247,0.5)",
+                    activeSkillCat === i ? cat.color : "#53647a",
                 }}
               >
                 <span
@@ -1473,15 +1315,15 @@ export default function App() {
                 {ACTIVITIES.map((act) => {
                   const colors: Record<string, string> = {
                     blue: "#3b82f6",
-                    cyan: "#06b6d4",
-                    indigo: "#818cf8",
-                    sky: "#38bdf8",
+                    cyan: "#087d91",
+                    indigo: "#6454b5",
+                    sky: "#1679a5",
                   };
                   const c = colors[act.color];
                   const typeColors: Record<string, string> = {
                     Internship: "#3b82f6",
-                    Leadership: "#06b6d4",
-                    "Open Source": "#818cf8",
+                    Leadership: "#087d91",
+                    "Open Source": "#6454b5",
                   };
                   return (
                     <div
@@ -1627,45 +1469,7 @@ export default function App() {
             Open to collaborating on exciting AI/ML projects, research
             collaborations, and job opportunities.
           </p>
-          <div className="flex flex-wrap justify-center gap-3 mb-12">
-            <a
-              href="mailto:hoangvananhgithub@gmail.com"
-              className="flex items-center gap-2 px-6 py-3 rounded font-mono text-sm font-medium text-white transition-all duration-200 hover:scale-105"
-              style={{
-                background: "linear-gradient(135deg, #3b82f6, #06b6d4)",
-              }}
-            >
-              <Mail size={16} />
-              hoangvananhgithub@gmail.com
-            </a>
-            <a
-              href="https://www.linkedin.com/in/ho%C3%A0ng-v%C4%83n-anh-831421266/?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_contact_details%3BfCDLn4hDQJCEqrgnYBr9jQ%3D%3D"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-2 px-5 py-3 rounded font-mono text-sm border border-border text-muted-foreground hover:text-blue-400 hover:border-blue-400/40 transition-all"
-            >
-              <Linkedin size={15} />
-              LinkedIn
-            </a>
-            <a
-              href="https://www.facebook.com/hoang.van.anh.271908?mibextid=wwXIfr&rdid=ynn6UHSVSBOvSMBI&share_url=https%3A%2F%2Fwww.facebook.com%2Fshare%2F1BzQqbcLuw%2F%3Fmibextid%3DwwXIfr"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-2 px-5 py-3 rounded font-mono text-sm border border-border text-muted-foreground hover:text-blue-500 hover:border-blue-500/40 transition-all"
-            >
-              <Facebook size={15} />
-              Facebook
-            </a>
-            <a
-              href="https://github.com/hoanganh-repogit"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-2 px-5 py-3 rounded font-mono text-sm border border-border text-muted-foreground hover:text-foreground hover:border-primary/40 transition-all"
-            >
-              <Github size={15} />
-              GitHub
-            </a>
-          </div>
+          <div className="footer-socials"><SocialLinks /></div>
           <div className="pt-8 border-t border-border/30 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs font-mono text-muted-foreground">
             <span>© 2026 Hoang Van Anh.</span>
             <span className="flex items-center gap-1">
@@ -1674,6 +1478,7 @@ export default function App() {
             </span>
           </div>
         </div>
+        <Signature />
       </footer>
     </div>
   );
