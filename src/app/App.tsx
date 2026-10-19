@@ -1,327 +1,36 @@
 import { NeuralNetwork } from "./NeuralNetwork";
-import { Signature } from "./Signature";
 import { SocialLinks } from "./SocialLinks";
+import { ContactInfo } from "./ContactInfo";
 import { useState, useEffect } from "react";
 import {
   Github,
   Linkedin,
-  Mail,
   ExternalLink,
-  Code2,
-  Brain,
-  Database,
-  Globe,
   Terminal,
   ChevronRight,
   Award,
-  BookOpen,
-  Briefcase,
-  Facebook,
-  User,
-  Layers,
   Activity,
   X,
   Menu,
   Download,
   Star,
-  GitBranch,
-  Cpu,
-  Server,
   Shield,
+  ArrowUp,
 } from "lucide-react";
-import { VscVscode } from "react-icons/vsc";
-import { FaAws } from "react-icons/fa6";
 import {
-  SiPycharm,
-  SiJupyter,
-  SiGit,
-  SiGithub,
-  SiGitlab,
-  SiDocker,
-  SiKubernetes,
-  SiPostman,
-  SiFigma,
-  SiNotion,
-  SiJira,
-  SiConfluence,
-  SiDatadog,
-  SiGrafana,
-  SiMlflow,
-  SiHuggingface,
-  SiVercel,
-  SiGooglecloud,
-  SiTerraform,
-  SiPrometheus,
-  SiLinux,
-  SiWeightsandbiases,
-  SiTensorflow,
-  SiPytorch,
-  SiKeras,
-} from "react-icons/si";
-
-const CV_URL = `${import.meta.env.BASE_URL}CV_HOANGVANANH.pdf`;
-
-
-const NAV_ITEMS = [
-  { id: "home", label: "Home" },
-  { id: "projects", label: "Projects" },
-  { id: "education", label: "Education" },
-  { id: "skills", label: "Skills" },
-  { id: "activities", label: "Activities" },
-];
-
-const PROJECTS = [
-  {
-    id: 1,
-    title: "Artificial Intelligence Knowledge Hub",
-    description:
-      "Developing an AI-powered chatbot website for answering questions based on educational materials and internal documents. The system provides responses grounded in the institutions document repository, with source citations included and no hallucinated information beyond the provided materials. The AI chatbot also supports summarizing and aggregating learning resources, making it easier for learners to search and access relevant materials. The platform includes role-based access control for administrators, lecturers, and students.",
-    tags: [
-      "Python",
-      "LangGraph",
-      "FastAPI",
-      "React",
-      "PostgreSQL",
-      "Docker",
-      "Docling",
-      "Qdrant",
-      "JWT/RBAC",
-      "React/Vite",
-    ],
-    type: "AI / NLP",
-    stars: 128,
-    status: "Production",
-    gradient: "from-blue-600/20 to-cyan-500/10",
-    borderColor: "border-blue-500/30",
-    accentColor: "#3b82f6",
-    year: "2026",
-    repoUrl: "https://github.com/hoanganh-repogit",
-    liveUrl: "https://ai20k-frontend.onrender.com/login",
-  },
-  {
-    id: 2,
-    title: "Meeting_Summarization",
-    description:
-      "A computer vision application for detecting product defects on manufacturing lines using YOLOv8, achieving 96.4% accuracy on a real-world test set.",
-    tags: ["Python", "Whisper", "PyTorch", "pyannote"],
-    type: "Speech Processing",
-    stars: 89,
-    status: "Completed",
-    gradient: "from-cyan-600/20 to-blue-500/10",
-    borderColor: "border-cyan-500/30",
-    accentColor: "#087d91",
-    year: "2026",
-    repoUrl: "https://github.com/hoanganh-repogit/Meeting_Summarization",
-    liveUrl: "",
-  },
-];
-
-const EDUCATION = [
-  {
-    id: 1,
-    degree: "Information Technology Engineer",
-    major: "Major in Artificial Intelligence & Machine Learning",
-    school: "FPT University",
-    period: "2022 – 2026",
-    gpa: "3.2 / 4.0",
-    highlight: "Bachelor’s Degree in Artificial Intelligence",
-    courses: [
-      "Machine Learning",
-      "Deep Learning",
-      "Algorithm Design",
-      "Distributed Systems",
-      "Computer Vision",
-      "Natural Language Processing",
-    ],
-    icon: "🎓",
-    color: "blue",
-  },
-  {
-    id: 2,
-    degree: "VinUniversity: Advanced Applied AI Talent Program",
-    major: "Artificial Intelligence & Data Science",
-    school: "VinUniversity",
-    period: "2026 – 2026 (6 months)",
-    gpa: "A / A+",
-    highlight:
-      "Focused on Large Language Models (LLMs) and AI Engineering Research",
-    courses: [
-      "Advanced NLP",
-      "Reinforcement Learning",
-      "AI Ethics",
-      "Cloud Computing",
-      "Agents AI",
-    ],
-    icon: "🌏",
-    color: "cyan",
-  },
-];
-
-const SKILL_CATEGORIES = [
-  {
-    category: "Programming Languages",
-    icon: <Code2 size={18} />,
-    color: "#3b82f6",
-    skills: [
-      { name: "Python", level: 95 },
-      { name: "TypeScript", level: 88 },
-      { name: "JavaScript", level: 85 },
-    ],
-  },
-  {
-    category: "AI & Machine Learning",
-    icon: <Brain size={18} />,
-    color: "#087d91",
-    skills: [
-      { name: "PyTorch", level: 90 },
-      { name: "HuggingFace", level: 87 },
-      { name: "LangChain", level: 85 },
-      { name: "Scikit-learn", level: 92 },
-      { name: "OpenCV", level: 80 },
-    ],
-  },
-  {
-    category: "Backend & Infrastructure",
-    icon: <Server size={18} />,
-    color: "#6454b5",
-    skills: [
-      { name: "FastAPI", level: 90 },
-      { name: "Node.js", level: 82 },
-      { name: "Docker", level: 88 },
-      { name: "Kubernetes", level: 72 },
-      { name: "PostgreSQL", level: 85 },
-      { name: "Redis", level: 80 },
-    ],
-  },
-  {
-    category: "Frontend",
-    icon: <Globe size={18} />,
-    color: "#1679a5",
-    skills: [
-      { name: "React", level: 88 },
-      { name: "Next.js", level: 85 },
-      { name: "Tailwind CSS", level: 90 },
-      { name: "Vue.js", level: 65 },
-      { name: "GraphQL", level: 70 },
-      { name: "WebSocket", level: 75 },
-    ],
-  },
-  {
-    category: "Cloud & DevOps",
-    icon: <Cpu size={18} />,
-    color: "#216f99",
-    skills: [
-      { name: "AWS", level: 80 },
-      { name: "GCP", level: 72 },
-      { name: "Terraform", level: 68 },
-      { name: "CI/CD GitLab", level: 85 },
-      { name: "Prometheus", level: 70 },
-      { name: "Linux", level: 88 },
-    ],
-  },
-  {
-    category: "Data & Analytics",
-    icon: <Database size={18} />,
-    color: "#2563eb",
-    skills: [
-      { name: "Pandas / NumPy", level: 93 },
-      { name: "Apache Spark", level: 65 },
-      { name: "Elasticsearch", level: 75 },
-      { name: "MongoDB", level: 78 },
-      { name: "Kafka", level: 68 },
-      { name: "Airflow", level: 60 },
-    ],
-  },
-];
-
-const TOOLS = [
-  { name: "VS Code", icon: <VscVscode />, color: "#3b82f6" },
-  { name: "PyCharm", icon: <SiPycharm />, color: "#087d91" },
-  { name: "Jupyter", icon: <SiJupyter />, color: "#bf5010" },
-  { name: "Git", icon: <SiGit />, color: "#ef4444" },
-  { name: "GitHub", icon: <SiGithub />, color: "#33465e" },
-  { name: "GitLab", icon: <SiGitlab />, color: "#b95616" },
-  { name: "Docker", icon: <SiDocker />, color: "#1679a5" },
-  { name: "Kubernetes", icon: <SiKubernetes />, color: "#6454b5" },
-  { name: "Postman", icon: <SiPostman />, color: "#bf5010" },
-  { name: "Weights & Biases", icon: <SiWeightsandbiases />, color: "#b02c77" },
-  { name: "Hugging Face", icon: <SiHuggingface />, color: "#9b6808" },
-  { name: "Vercel", icon: <SiVercel />, color: "#33465e" },
-  { name: "AWS", icon: <FaAws />, color: "#bf5010" },
-  { name: "Google Cloud", icon: <SiGooglecloud />, color: "#1679a5" },
-  { name: "Terraform", icon: <SiTerraform />, color: "#6454b5" },
-  { name: "Prometheus", icon: <SiPrometheus />, color: "#bf5010" },
-  { name: "Grafana", icon: <SiGrafana />, color: "#b95616" },
-  { name: "Datadog", icon: <SiDatadog />, color: "#7653b2" },
-  { name: "MLflow", icon: <SiMlflow />, color: "#087d91" },
-  { name: "Linux", icon: <SiLinux />, color: "#33465e" },
-  { name: "Figma", icon: <SiFigma />, color: "#b02c77" },
-  { name: "Notion", icon: <SiNotion />, color: "#33465e" },
-  { name: "Jira", icon: <SiJira />, color: "#3b82f6" },
-  { name: "Confluence", icon: <SiConfluence />, color: "#1679a5" },
-];
-
-const ACTIVITIES = [
-  {
-    id: 1,
-    title: "VinUniversity: AI in Action",
-    org: "VinUni AI in Action: AI Talent Development Program",
-    period: "Jun 2026 – Aug 2026",
-    type: "Internship",
-    description:
-      "Participated in the **AI in Action Program at VinUniversity**, a hands-on AI talent development program focused on practical training and real-world applications. Received training and studied at the university while applying AI technologies to product development and project implementation. Gained hands-on industry experience through internships within Vingroup’s enterprises, working directly with professional teams on real business challenges and technology-driven solutions.",
-    tags: ["LLM", "NLP", "Research", "Python", "Agnets AI", "RAG"],
-    icon: <Brain size={16} />,
-    color: "blue",
-  },
-  {
-    id: 2,
-    title: "AWS Cloud Services Intern",
-    org: "Amazon Web Services",
-    period: "Jun 2025 – Aug 2025",
-    type: "Internship",
-    description:
-      "Conducted research and hands-on work with AWS services, designing cloud architectures and evaluating new service offerings. Engaged in cloud events and technical workshops to deepen expertise in cloud computing. Collaborated with enterprises to understand system operations, product development lifecycles, and strengthen deployment and DevOps knowledge.",
-    tags: ["EC2", "IAM", "S3", "EBS", "CloudFront", "API Gateway"],
-    icon: <Server size={16} />,
-    color: "cyan",
-  },
-];
-
-const CERTIFICATES = [
-  {
-    id: 1,
-    name: "AWS Certified Cloud Practitioner – Foundational",
-    issuer: "Amazon Web Services",
-    date: "Jan 2026",
-    url: "https://www.credly.com/badges/0f921c7e-0980-4bcf-a621-68c11fcf329d/public_url",
-    icon: <FaAws />,
-    color: "#3b82f6",
-  },
-  {
-    id: 2,
-    name: "Deep Learning Specialization",
-    issuer: "Coursera – deeplearning.ai",
-    date: "May 2025",
-    url: "https://www.coursera.org/account/accomplishments/specialization/0DXXF3CLE5S9",
-    icon: <SiPytorch />,
-    color: "#6454b5",
-  },
-  {
-    id: 3,
-    name: "Gemini Certified Educator",
-    issuer: "Google – Education",
-    date: "Dec 2025",
-    url: "https://edu.google.accredible.com/f028a8d8-edff-4432-bab7-0fc351542007#acc.iR1mAK3N",
-    icon: <SiGooglecloud />,
-    color: "#6454b5",
-  },
-];
-
+  CV_URL,
+  NAV_ITEMS,
+  PROJECTS,
+  EDUCATION,
+  SKILL_CATEGORIES,
+  TOOLS,
+  ACTIVITIES,
+  CERTIFICATES,
+} from "./data";
 
 function TerminalBadge({
   text,
-  color = "#3b82f6",
+  color = "#285fba",
 }: {
   text: string;
   color?: string;
@@ -357,25 +66,22 @@ function SkillTag({
       : tier === "proficient"
         ? "Proficient"
         : "Familiar";
-  const opacity = tier === "expert" ? 1 : tier === "proficient" ? 0.75 : 0.5;
   return (
     <div
       className="flex items-center justify-between px-3 py-2 rounded-lg border transition-all duration-200 hover:scale-[1.02] cursor-default group"
       style={{
         borderColor: `${color}${tier === "expert" ? "50" : tier === "proficient" ? "30" : "18"}`,
         background: `${color}${tier === "expert" ? "12" : "07"}`,
-        opacity,
       }}
     >
       <span
-        className="text-sm font-mono text-foreground group-hover:opacity-100"
-        style={{ opacity: 1 / opacity }}
+        className="text-sm font-mono text-foreground"
       >
         {name}
       </span>
       <span
         className="text-xs font-mono px-1.5 py-0.5 rounded"
-        style={{ color, background: `${color}20`, opacity: 1 / opacity }}
+        style={{ color, background: `${color}20` }}
       >
         {tierLabel}
       </span>
@@ -459,7 +165,7 @@ function SectionHeader({
         {title}
       </h2>
       {subtitle && (
-        <p className="mt-2 text-muted-foreground font-mono text-sm">
+        <p className="mt-3 text-muted-foreground text-base max-w-xl">
           {subtitle}
         </p>
       )}
@@ -546,7 +252,7 @@ export default function App() {
                 style={{
                   color:
                     activeSection === item.id
-                      ? "#3b82f6"
+                      ? "#285fba"
                       : "#53647a",
                 }}
               >
@@ -571,7 +277,7 @@ export default function App() {
               download="CV_HOANGVANANH.pdf"
               className="flex items-center gap-2 px-4 py-2 rounded text-sm font-mono font-semibold text-white transition-all duration-200 hover:scale-105 hover:shadow-lg hover:shadow-primary/30"
               style={{
-                background: "linear-gradient(135deg, #3b82f6, #087d91)",
+                background: "#285fba",
               }}
             >
               <Download size={14} />
@@ -609,7 +315,7 @@ export default function App() {
                   style={{
                     color:
                       activeSection === item.id
-                        ? "#3b82f6"
+                        ? "#285fba"
                         : "#53647a",
                     background:
                       activeSection === item.id
@@ -643,7 +349,7 @@ export default function App() {
                   download="CV_HOANGVANANH.pdf"
                   className="ml-auto flex items-center gap-2 px-3 py-1.5 rounded text-xs font-mono font-semibold text-white"
                   style={{
-                    background: "linear-gradient(135deg, #3b82f6, #087d91)",
+                    background: "#285fba",
                   }}
                 >
                   <Download size={12} /> Download CV
@@ -670,25 +376,13 @@ export default function App() {
                 </span>
               </div>
 
-              <div className="mb-4 font-mono text-sm text-primary/70">
-                <span className="text-muted-foreground">$ whoami</span>
-              </div>
-
               <h1
                 className="text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight mb-2 leading-none"
                 style={{ fontFamily: "'Outfit', sans-serif" }}
               >
                 <span className="text-foreground">Hoang</span>
                 <br />
-                <span
-                  className="bg-clip-text text-transparent"
-                  style={{
-                    backgroundImage:
-                      "linear-gradient(135deg, #3b82f6, #087d91, #6454b5)",
-                  }}
-                >
-                  Van Anh
-                </span>
+                <span className="text-primary">Van Anh</span>
               </h1>
 
               <div className="flex items-center gap-2 mt-5 mb-6">
@@ -728,41 +422,24 @@ export default function App() {
                   "Docker",
                   "AWS",
                 ].map((t) => (
-                  <TerminalBadge key={t} text={t} color="#3b82f6" />
+                  <TerminalBadge key={t} text={t} color="#285fba" />
                 ))}
               </div>
 
-              <div className="hero-socials"><SocialLinks /></div>
-
-              <div className="flex flex-wrap gap-3">
-                <button
-                  onClick={() => scrollTo("projects")}
-                  className="flex items-center gap-2 px-6 py-3 rounded font-mono text-sm font-medium text-white transition-all duration-200 hover:scale-105 active:scale-95"
-                  style={{
-                    background: "linear-gradient(135deg, #3b82f6, #087d91)",
-                  }}
-                >
+              <div className="hero-actions">
+                <button onClick={() => scrollTo("projects")} className="btn btn--primary">
                   View Projects
                   <ChevronRight size={16} />
                 </button>
-                <a
-                  href={CV_URL}
-                  download="CV_HOANGVANANH.pdf"
-                  className="flex items-center gap-2 px-6 py-3 rounded font-mono text-sm font-semibold text-white transition-all duration-200 hover:scale-105 hover:shadow-lg hover:shadow-cyan-500/30 active:scale-95"
-                  style={{
-                    background: "linear-gradient(135deg, #0284c7, #087d91)",
-                  }}
-                >
+                <a href={CV_URL} download="CV_HOANGVANANH.pdf" className="btn btn--secondary">
                   <Download size={15} />
                   Download CV
                 </a>
-                <button
-                  onClick={() => scrollTo("activities")}
-                  className="flex items-center gap-2 px-6 py-3 rounded font-mono text-sm font-medium border border-border text-foreground/70 hover:text-foreground hover:border-primary/40 transition-all duration-200"
-                >
-                  <Briefcase size={15} />
-                  Experience
-                </button>
+              </div>
+
+              <div className="hero-contact">
+                <ContactInfo />
+                <SocialLinks />
               </div>
             </div>
 
@@ -801,7 +478,7 @@ export default function App() {
                 <div
                   className="absolute -left-14 top-8 px-3 py-2 rounded-lg border backdrop-blur-sm text-center"
                   style={{
-                    background: "rgba(11,22,40,0.9)",
+                    background: "rgba(255,255,255,0.95)",
                     borderColor: "rgba(59,130,246,0.3)",
                   }}
                 >
@@ -815,7 +492,7 @@ export default function App() {
                 <div
                   className="absolute -right-14 bottom-12 px-3 py-2 rounded-lg border backdrop-blur-sm text-center"
                   style={{
-                    background: "rgba(11,22,40,0.9)",
+                    background: "rgba(255,255,255,0.95)",
                     borderColor: "rgba(6,182,212,0.3)",
                   }}
                 >
@@ -832,7 +509,7 @@ export default function App() {
                 <div
                   className="absolute -bottom-4 left-1/2 -translate-x-1/2 px-4 py-2 rounded-lg border backdrop-blur-sm whitespace-nowrap"
                   style={{
-                    background: "rgba(11,22,40,0.9)",
+                    background: "rgba(255,255,255,0.95)",
                     borderColor: "rgba(129,140,248,0.3)",
                   }}
                 >
@@ -848,7 +525,7 @@ export default function App() {
           {/* Quick stats row */}
           <div className="mt-20 lg:mt-24 grid grid-cols-2 sm:grid-cols-4 gap-4">
             {[
-              { value: "6+", label: "Projects shipped", color: "#3b82f6" },
+              { value: "6+", label: "Projects shipped", color: "#285fba" },
               { value: "15+", label: "Open source PRs", color: "#087d91" },
               { value: "6", label: "Certifications", color: "#6454b5" },
               { value: "3yr", label: "Experience", color: "#1679a5" },
@@ -882,7 +559,7 @@ export default function App() {
           <SectionHeader
             index="01 // projects"
             title="Featured Projects"
-            subtitle="// Highlighted Projects — From Research to Production"
+            subtitle="Selected work, from research to production."
           />
 
           <div className="project-grid grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -903,7 +580,7 @@ export default function App() {
                   }}
                 />
 
-                <div className="relative p-5">
+                <div className="relative p-5 flex flex-col h-full">
                   {/* Header */}
                   <div className="flex items-start justify-between mb-3">
                     <div>
@@ -952,7 +629,7 @@ export default function App() {
                   </div>
 
                   {/* Footer */}
-                  <div className="flex items-center justify-between pt-3 border-t border-border/30">
+                  <div className="mt-auto flex items-center justify-between pt-3 border-t border-border/30">
                     <span
                       className="flex items-center gap-1.5 text-xs font-mono"
                       style={{ color: proj.accentColor }}
@@ -967,7 +644,7 @@ export default function App() {
                           target="_blank"
                           rel="noopener noreferrer"
                           aria-label={`${proj.title} source code`}
-                          className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-mono font-medium border transition-all duration-200 hover:scale-105"
+                          className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold border transition-all duration-200 hover:-translate-y-0.5 active:translate-y-0"
                           style={{
                             color: proj.accentColor,
                             borderColor: proj.accentColor + "50",
@@ -984,7 +661,7 @@ export default function App() {
                           target="_blank"
                           rel="noopener noreferrer"
                           aria-label={`${proj.title} live demo`}
-                          className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-mono font-medium border border-border/50 text-muted-foreground hover:text-foreground transition-colors"
+                          className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold border border-border/50 text-muted-foreground hover:text-foreground transition-colors"
                         >
                           <ExternalLink size={14} />
                           Demo
@@ -1002,7 +679,7 @@ export default function App() {
               href="https://github.com/hoanganh-repogit"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-6 py-3 rounded font-mono text-sm border border-border text-muted-foreground hover:text-foreground hover:border-primary/40 transition-all"
+              className="btn btn--ghost"
             >
               <Github size={15} />
               Explore more on GitHub
@@ -1025,7 +702,7 @@ export default function App() {
           <SectionHeader
             index="02 // education"
             title="Education"
-            subtitle="// Learning and Growth Journey"
+            subtitle="Where I learned AI and software engineering."
           />
 
           <div className="relative">
@@ -1033,9 +710,9 @@ export default function App() {
             <div className="hidden md:block absolute left-[220px] top-0 bottom-0 w-px bg-gradient-to-b from-primary/40 via-primary/20 to-transparent" />
 
             <div className="flex flex-col gap-8">
-              {EDUCATION.map((edu, i) => {
+              {EDUCATION.map((edu) => {
                 const colors: Record<string, string> = {
-                  blue: "#3b82f6",
+                  blue: "#285fba",
                   cyan: "#087d91",
                   indigo: "#6454b5",
                 };
@@ -1077,7 +754,7 @@ export default function App() {
                         }}
                       >
                         <div className="flex items-start gap-3 mb-3">
-                          <span className="text-2xl">{edu.icon}</span>
+                          <span className="edu-icon" style={{ color: c, background: c + "14" }}>{edu.icon}</span>
                           <div>
                             <h3
                               className="font-semibold text-foreground text-base"
@@ -1139,40 +816,10 @@ export default function App() {
           <SectionHeader
             index="03 // skills"
             title="Skills & Tools"
-            subtitle="// Technologies & Tools I Use Daily"
+            subtitle="The stack I use to build and ship AI products."
           />
 
-          {/* Category tabs */}
-          <div className="flex flex-wrap gap-2 mb-8">
-            {SKILL_CATEGORIES.map((cat, i) => (
-              <button
-                key={cat.category}
-                onClick={() => setActiveSkillCat(i)}
-                className="flex items-center gap-2 px-3 py-2 rounded-lg text-xs font-mono border transition-all duration-200"
-                style={{
-                  borderColor:
-                    activeSkillCat === i
-                      ? cat.color + "60"
-                      : "rgba(59,130,246,0.15)",
-                  background:
-                    activeSkillCat === i ? cat.color + "15" : "transparent",
-                  color:
-                    activeSkillCat === i ? cat.color : "#53647a",
-                }}
-              >
-                <span
-                  style={{
-                    color: activeSkillCat === i ? cat.color : "inherit",
-                  }}
-                >
-                  {cat.icon}
-                </span>
-                {cat.category}
-              </button>
-            ))}
-          </div>
-
-          {/* Skills grid */}
+          {/* Skills grid: details on the left, category picker on the right */}
           <div className="grid md:grid-cols-2 gap-10 mb-16">
             {/* Active category tags */}
             <div
@@ -1233,7 +880,8 @@ export default function App() {
                 <button
                   key={cat.category}
                   onClick={() => setActiveSkillCat(i)}
-                  className="p-4 rounded-xl border text-left transition-all duration-200 hover:scale-[1.02]"
+                  aria-pressed={i === activeSkillCat}
+                  className="skill-picker p-4 rounded-xl border text-left transition-all duration-200 hover:-translate-y-0.5"
                   style={{
                     borderColor:
                       i === activeSkillCat
@@ -1246,7 +894,7 @@ export default function App() {
                   }}
                 >
                   <span style={{ color: cat.color }}>{cat.icon}</span>
-                  <div className="text-xs font-mono text-muted-foreground mt-2 leading-tight">
+                  <div className="text-sm font-semibold text-foreground mt-2 leading-tight">
                     {cat.category}
                   </div>
                   <div className="flex flex-wrap gap-1 mt-3">
@@ -1258,7 +906,7 @@ export default function App() {
                           color: cat.color,
                           background: cat.color + "18",
                           opacity:
-                            s.level >= 85 ? 1 : s.level >= 70 ? 0.7 : 0.45,
+                            s.level >= 85 ? 1 : s.level >= 70 ? 0.9 : 0.8,
                         }}
                       >
                         {s.name}
@@ -1298,7 +946,7 @@ export default function App() {
           <SectionHeader
             index="04 // activities"
             title="Activities & Certificates"
-            subtitle="// Experience, Activities, and Professional Certifications"
+            subtitle="Programs, internships, and professional certifications."
           />
 
           <div className="grid lg:grid-cols-[1fr_400px] gap-12 lg:gap-16">
@@ -1314,14 +962,14 @@ export default function App() {
               <div className="flex flex-col gap-4">
                 {ACTIVITIES.map((act) => {
                   const colors: Record<string, string> = {
-                    blue: "#3b82f6",
+                    blue: "#285fba",
                     cyan: "#087d91",
                     indigo: "#6454b5",
                     sky: "#1679a5",
                   };
                   const c = colors[act.color];
                   const typeColors: Record<string, string> = {
-                    Internship: "#3b82f6",
+                    Internship: "#285fba",
                     Leadership: "#087d91",
                     "Open Source": "#6454b5",
                   };
@@ -1434,8 +1082,8 @@ export default function App() {
                         <span className="text-muted-foreground/40 text-xs">
                           ·
                         </span>
-                        <span className="text-xs font-mono text-muted-foreground/60 truncate">
-                          {cert.credentialId}
+                        <span className="text-xs font-mono text-muted-foreground group-hover:text-foreground transition-colors">
+                          Verify credential
                         </span>
                       </div>
                     </div>
@@ -1453,32 +1101,42 @@ export default function App() {
       </section>
 
       {/* ── CONTACT FOOTER ── */}
-      <footer className="relative z-10 py-20 border-t border-border/50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <div className="font-mono text-xs text-muted-foreground mb-4">
-            <span className="text-primary">$</span> echo &quot;Let&apos;s build
-            something together&quot;
+      <footer id="contact" className="site-footer relative z-10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="footer-card">
+            <div className="footer-card__text">
+              <h2 style={{ fontFamily: "'Outfit', sans-serif" }}>
+                Let&apos;s build something together
+              </h2>
+              <p>
+                Open to AI Engineer and Full-Stack roles, research
+                collaborations, and freelance AI projects.
+              </p>
+              <a href={CV_URL} download="CV_HOANGVANANH.pdf" className="btn btn--primary footer-card__cv">
+                <Download size={15} />
+                Download CV
+              </a>
+            </div>
+            <div className="footer-card__contact">
+              <ContactInfo />
+              <SocialLinks />
+            </div>
           </div>
-          <h2
-            className="text-3xl md:text-4xl font-bold text-foreground mb-4"
-            style={{ fontFamily: "'Outfit', sans-serif" }}
-          >
-            Get in Touch
-          </h2>
-          <p className="text-muted-foreground mb-8 max-w-md mx-auto text-sm leading-relaxed">
-            Open to collaborating on exciting AI/ML projects, research
-            collaborations, and job opportunities.
-          </p>
-          <div className="footer-socials"><SocialLinks /></div>
-          <div className="pt-8 border-t border-border/30 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs font-mono text-muted-foreground">
-            <span>© 2026 Hoang Van Anh.</span>
-            <span className="flex items-center gap-1">
-              <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
-              All systems operational
-            </span>
+
+          <div className="footer-bottom">
+            <span>© {new Date().getFullYear()} Hoang Van Anh</span>
+            <nav aria-label="Footer navigation" className="footer-bottom__nav">
+              {NAV_ITEMS.map((item) => (
+                <button key={item.id} onClick={() => scrollTo(item.id)}>
+                  {item.label}
+                </button>
+              ))}
+            </nav>
+            <button onClick={() => scrollTo("home")} className="footer-bottom__top">
+              Back to top <ArrowUp size={13} />
+            </button>
           </div>
         </div>
-        <Signature />
       </footer>
     </div>
   );

@@ -26,7 +26,7 @@ Software Engineer passionate about building practical AI systems. Specializing i
 
 ## Featured Projects
 
-- **AI Chatbot Platform** — Intelligent chatbot system integrated with LLM (GPT-4) and RAG pipeline, supporting multi-language and custom knowledge base for enterprises.
+- **AI Knowledge Hub** — RAG chatbot that answers from an institution's documents with source citations, built with LangGraph, Qdrant, FastAPI and React.
 - **Meeting Summarization** — Speech processing application using Whisper and pyannote for automated meeting transcription and summarization.
 
 ## Contact
@@ -39,16 +39,13 @@ Software Engineer passionate about building practical AI systems. Specializing i
 
 ```bash
 npm install
-npm run dev
+npm run dev         # http://localhost:5173/Portfolio/
+npm run typecheck   # TypeScript check
+npm run build       # output in dist/
+npm run preview     # serve the built site
 ```
 
-Open [http://localhost:5173](http://localhost:5173) to view the portfolio.
-
-```bash
-npm run build
-```
-
-Build output is in the `dist/` directory.
+All page content (projects, education, skills, activities, certificates) lives in `src/app/data.tsx`.
 
 ## License
 
