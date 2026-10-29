@@ -13,7 +13,7 @@ import {
   X,
   Menu,
   Download,
-  Star,
+  Users,
   Shield,
   ArrowUp,
 } from "lucide-react";
@@ -390,35 +390,41 @@ export default function App() {
                 <p className="font-mono text-sm text-muted-foreground">
                   <span className="text-accent">AI Engineer</span>
                   <span className="text-muted-foreground/40 mx-2">/</span>
-                  <span className="text-primary/70">ML-DL Researcher</span>
+                  <span className="text-primary/70">Reinforcement Learning</span>
                   <span className="text-muted-foreground/40 mx-2">/</span>
-                  <span className="text-foreground/50">Full-Stack Dev</span>
+                  <span className="text-foreground/50">ML Systems</span>
                 </p>
               </div>
 
-              <p className="text-base md:text-lg text-muted-foreground leading-relaxed mb-8 max-w-xl">
-                Software Engineer passionate about building practical AI
-                systems. Specializing in{" "}
+              <p className="text-base md:text-lg text-muted-foreground leading-relaxed mb-4 max-w-xl">
+                I like taking models from experiment to a working system. I
+                work hands-on with{" "}
                 <span className="text-foreground font-medium">
-                  Large Language Models (LLMs)
-                </span>
-                ,{" "}
+                  reinforcement learning
+                </span>{" "}
+                (a LinUCB contextual bandit for in-app personalization, Deep
+                Q-Networks),{" "}
                 <span className="text-foreground font-medium">
-                  Computer Vision
+                  computer vision
                 </span>{" "}
                 and{" "}
                 <span className="text-foreground font-medium">
-                  distributed systems
+                  speech &amp; LLM pipelines
                 </span>
-                , with strong research interests in artificial intelligence.
+                , and build the services around them with FastAPI, Redis,
+                Docker and AWS.
+              </p>
+              <p className="text-sm md:text-base text-muted-foreground leading-relaxed mb-8 max-w-xl">
+                I measure results against baselines on held-out data, so the
+                numbers show whether a model really helps.
               </p>
 
               <div className="flex flex-wrap gap-3 mb-8">
                 {[
                   "Python",
-                  "JavaScript",
                   "PyTorch",
-                  "LangChain",
+                  "FastAPI",
+                  "Redis",
                   "Docker",
                   "AWS",
                 ].map((t) => (
@@ -483,7 +489,7 @@ export default function App() {
                   }}
                 >
                   <div className="text-lg font-bold text-primary font-mono">
-                    6+
+                    {PROJECTS.length}
                   </div>
                   <div className="text-xs text-muted-foreground font-mono">
                     projects
@@ -514,8 +520,8 @@ export default function App() {
                   }}
                 >
                   <div className="text-xs font-mono text-foreground/70">
-                    <span className="text-indigo-400">AI Engineer</span> @
-                    Researcher
+                    <span className="text-indigo-400">AI Engineer</span> · Ho
+                    Chi Minh City
                   </div>
                 </div>
               </div>
@@ -525,10 +531,10 @@ export default function App() {
           {/* Quick stats row */}
           <div className="mt-20 lg:mt-24 grid grid-cols-2 sm:grid-cols-4 gap-4">
             {[
-              { value: "6+", label: "Projects shipped", color: "#285fba" },
-              { value: "15+", label: "Open source PRs", color: "#087d91" },
-              { value: "6", label: "Certifications", color: "#6454b5" },
-              { value: "3yr", label: "Experience", color: "#1679a5" },
+              { value: "2", label: "AI & cloud internships", color: "#285fba" },
+              { value: String(PROJECTS.length), label: "Featured projects", color: "#087d91" },
+              { value: String(CERTIFICATES.length), label: "Certifications", color: "#6454b5" },
+              { value: "2026", label: "B.Sc. AI · FPT University", color: "#1679a5" },
             ].map((stat) => (
               <div
                 key={stat.label}
@@ -559,7 +565,7 @@ export default function App() {
           <SectionHeader
             index="01 // projects"
             title="Featured Projects"
-            subtitle="Selected work, from research to production."
+            subtitle="Selected work, each result measured against a baseline on held-out data."
           />
 
           <div className="project-grid grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -595,9 +601,12 @@ export default function App() {
                         >
                           {proj.type}
                         </span>
-                        <span className="text-xs font-mono text-muted-foreground">
-                          {proj.year}
-                        </span>
+                        {proj.team && (
+                          <span className="flex items-center gap-1 text-xs font-mono text-muted-foreground">
+                            <Users size={11} />
+                            {proj.team}
+                          </span>
+                        )}
                       </div>
                       <h3
                         className="text-base font-semibold text-foreground group-hover:text-primary transition-colors"
@@ -606,15 +615,42 @@ export default function App() {
                         {proj.title}
                       </h3>
                     </div>
-                    <span className="flex items-center gap-1 text-xs font-mono text-muted-foreground ml-2 shrink-0">
-                      <Star size={11} style={{ color: proj.accentColor }} />
-                      {proj.stars}
-                    </span>
                   </div>
 
-                  <p className="text-sm text-muted-foreground leading-relaxed mb-4 line-clamp-3">
+                  <p className="text-sm text-muted-foreground leading-relaxed mb-4">
                     {proj.description}
                   </p>
+
+                  {/* Key results */}
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 mb-2">
+                    {proj.metrics.map((m) => (
+                      <div
+                        key={m.label}
+                        className="px-2.5 py-2 rounded-lg border"
+                        style={{
+                          borderColor: proj.accentColor + "30",
+                          background: proj.accentColor + "0d",
+                        }}
+                      >
+                        <div
+                          className="text-sm font-bold font-mono leading-tight"
+                          style={{ color: proj.accentColor }}
+                        >
+                          {m.value}
+                        </div>
+                        <div className="text-xs text-muted-foreground leading-snug mt-0.5">
+                          {m.label}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                  {proj.note ? (
+                    <p className="text-xs font-mono text-muted-foreground mb-4">
+                      {proj.note}
+                    </p>
+                  ) : (
+                    <div className="mb-4" />
+                  )}
 
                   {/* Tags */}
                   <div className="flex flex-wrap gap-1.5 mb-4">
@@ -702,7 +738,7 @@ export default function App() {
           <SectionHeader
             index="02 // education"
             title="Education"
-            subtitle="Where I learned AI and software engineering."
+            subtitle="Where I studied artificial intelligence."
           />
 
           <div className="relative">
@@ -816,7 +852,7 @@ export default function App() {
           <SectionHeader
             index="03 // skills"
             title="Skills & Tools"
-            subtitle="The stack I use to build and ship AI products."
+            subtitle="What I use to train models and ship them as services."
           />
 
           {/* Skills grid: details on the left, category picker on the right */}
@@ -925,9 +961,9 @@ export default function App() {
             </h3>
             <div className="flex flex-col gap-3 overflow-hidden rounded-xl">
               {/* Row 1 — scrolls left */}
-              <ToolMarquee tools={TOOLS.slice(0, 12)} direction="left" />
+              <ToolMarquee tools={TOOLS.slice(0, 10)} direction="left" />
               {/* Row 2 — scrolls right */}
-              <ToolMarquee tools={TOOLS.slice(12)} direction="right" />
+              <ToolMarquee tools={TOOLS.slice(10)} direction="right" />
             </div>
           </div>
         </div>
@@ -944,9 +980,9 @@ export default function App() {
         />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
           <SectionHeader
-            index="04 // activities"
-            title="Activities & Certificates"
-            subtitle="Programs, internships, and professional certifications."
+            index="04 // experience"
+            title="Experience & Certificates"
+            subtitle="Internships, training programs, and professional certifications."
           />
 
           <div className="grid lg:grid-cols-[1fr_400px] gap-12 lg:gap-16">
@@ -956,7 +992,7 @@ export default function App() {
                 <Activity size={16} className="text-primary" />
                 <h3 className="font-mono text-sm text-muted-foreground">
                   <span className="text-primary">//</span> Experience &
-                  Activities
+                  Programs
                 </h3>
               </div>
               <div className="flex flex-col gap-4">
@@ -970,8 +1006,7 @@ export default function App() {
                   const c = colors[act.color];
                   const typeColors: Record<string, string> = {
                     Internship: "#285fba",
-                    Leadership: "#087d91",
-                    "Open Source": "#6454b5",
+                    Program: "#6454b5",
                   };
                   return (
                     <div
@@ -1022,6 +1057,23 @@ export default function App() {
                       <p className="text-sm text-muted-foreground leading-relaxed mb-3 ml-11">
                         {act.description}
                       </p>
+                      {act.bullets.length > 0 && (
+                        <ul className="flex flex-col gap-1.5 mb-3 ml-11">
+                          {act.bullets.map((b) => (
+                            <li
+                              key={b}
+                              className="flex gap-2 text-sm text-muted-foreground leading-relaxed"
+                            >
+                              <ChevronRight
+                                size={14}
+                                className="shrink-0 mt-1"
+                                style={{ color: c }}
+                              />
+                              {b}
+                            </li>
+                          ))}
+                        </ul>
+                      )}
                       <div className="flex flex-wrap gap-1.5 ml-11">
                         {act.tags.map((tag) => (
                           <span
@@ -1073,15 +1125,19 @@ export default function App() {
                         {cert.issuer}
                       </p>
                       <div className="flex items-center gap-2 mt-1.5">
-                        <span
-                          className="text-xs font-mono"
-                          style={{ color: cert.color }}
-                        >
-                          {cert.date}
-                        </span>
-                        <span className="text-muted-foreground/40 text-xs">
-                          ·
-                        </span>
+                        {cert.date && (
+                          <>
+                            <span
+                              className="text-xs font-mono"
+                              style={{ color: cert.color }}
+                            >
+                              {cert.date}
+                            </span>
+                            <span className="text-muted-foreground/40 text-xs">
+                              ·
+                            </span>
+                          </>
+                        )}
                         <span className="text-xs font-mono text-muted-foreground group-hover:text-foreground transition-colors">
                           Verify credential
                         </span>
@@ -1109,8 +1165,8 @@ export default function App() {
                 Let&apos;s build something together
               </h2>
               <p>
-                Open to AI Engineer and Full-Stack roles, research
-                collaborations, and freelance AI projects.
+                Open to AI Engineer roles and to working together on ML
+                systems, reinforcement learning, and applied AI.
               </p>
               <a href={CV_URL} download="CV_HOANGVANANH.pdf" className="btn btn--primary footer-card__cv">
                 <Download size={15} />

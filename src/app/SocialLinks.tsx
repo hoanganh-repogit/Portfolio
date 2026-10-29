@@ -5,7 +5,7 @@ import { ArrowUpRight } from "lucide-react";
 const links = [
   { label: "GitHub", href: "https://github.com/hoanganh-repogit", icon: FaGithub, brand: "github" },
   { label: "LinkedIn", href: "https://www.linkedin.com/in/ho%C3%A0ng-v%C4%83n-anh-831421266/", icon: FaLinkedinIn, brand: "linkedin" },
-  { label: "Facebook", href: "https://www.facebook.com/hoang.van.anh.271908", icon: FaFacebookF, brand: "facebook" },
+  { label: "Facebook", href: "https://www.facebook.com/profile.php?id=61593055485654", icon: FaFacebookF, brand: "facebook" },
 ];
 
 export function SocialLinks({ compact = false }: { compact?: boolean }) {
